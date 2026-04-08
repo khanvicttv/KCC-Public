@@ -59,4 +59,4 @@ All your data stays in **your browser's local storage** — nobody else can see 
 
 ## Credits
 
-Built by Arbab Khan ([@khanvicttv](https://tiktok.com/@khanvicttv)). If you find this useful, drop a follow.
+Built by KhanvictTV ([@khanvicttv](https://tiktok.com/@khanvicttv)). If you find this useful, drop a follow.
