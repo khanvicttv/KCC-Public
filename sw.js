@@ -1,10 +1,10 @@
-const CACHE = 'kcc-v28';
+const CACHE = 'kcc-v29';
 const ASSETS = [
-  '/KCC-Public/',
-  '/KCC-Public/index.html',
-  '/KCC-Public/manifest.json',
-  '/KCC-Public/icon-192.png',
-  '/KCC-Public/icon-512.png'
+  '/content-center/',
+  '/content-center/index.html',
+  '/content-center/manifest.json',
+  '/content-center/icon-192.png',
+  '/content-center/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
@@ -19,6 +19,7 @@ self.addEventListener('activate', e => {
     caches.keys().then(keys =>
       Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
     ).then(() => {
+      // Tell all open tabs a new version is active
       self.clients.matchAll({ includeUncontrolled: true }).then(clients => {
         clients.forEach(client => client.postMessage({ type: 'UPDATE_AVAILABLE' }));
       });
@@ -28,9 +29,10 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  // Always network-first for HTML — catches updates immediately
   if (e.request.mode === 'navigate' ||
       e.request.url.includes('index.html') ||
-      e.request.url.endsWith('/KCC-Public/')) {
+      e.request.url.endsWith('/content-center/')) {
     e.respondWith(
       fetch(e.request)
         .then(res => {
@@ -42,9 +44,11 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
+  // Cache-first for everything else (icons, manifest)
   e.respondWith(
     caches.match(e.request).then(cached =>
-      cached || fetch(e.request).catch(() => caches.match('/KCC-Public/index.html'))
+      cached || fetch(e.request).catch(() => caches.match('/content-center/index.html'))
     )
   );
 });
+
