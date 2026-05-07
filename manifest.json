@@ -1,8 +1,8 @@
 {
   "name": "Khanvict Command Center",
   "short_name": "KCC",
-  "description": "Stream content scheduler and posting command center",
-  "start_url": "/KCC-Public/",
+  "description": "Khanvict TV stream content scheduler and posting command center",
+  "start_url": "/content-center/",
   "display": "standalone",
   "background_color": "#0a0a0f",
   "theme_color": "#0a0a0f",
